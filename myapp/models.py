@@ -39,3 +39,7 @@ class Item(models.Model):
 
 	def __str__(self) -> str:
 		return self.name
+
+class newpp(models.Model):
+    fname = models.CharField(max_length=255)
+    lname =models.CharField(max_length=255)
