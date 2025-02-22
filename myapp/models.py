@@ -43,3 +43,4 @@ class Item(models.Model):
 class newpp(models.Model):
     fname = models.CharField(max_length=255)
     lname =models.CharField(max_length=255)
+    address=models.CharField(max_length=255)
