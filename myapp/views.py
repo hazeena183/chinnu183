@@ -199,3 +199,54 @@ class ItemAPIView(APIView):
         item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+from rest_framework import generics
+from .models import Genre, Book
+from .serializers import GenreSerializer, BookSerializer
+
+# ✅ Genre Views
+class GenreListCreateView(generics.ListCreateAPIView):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+
+class GenreRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+
+# ✅ Book Views
+class BookListCreateView(generics.ListCreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class BookRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+
+# from django.contrib.auth.models import User
+#
+# user = User.objects.create_user('john', 'johndoe@example.com', 'john123')
+#
+# user.first_name = 'John'
+# user.last_name = 'Doe'
+# user.save()
+
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+class CustomUser(AbstractUser):
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+
+    # Custom related names for reverse relationships
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='customuser_set',
+        blank=True
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='customuser_permissions_set',
+        blank=True
+    )
+
