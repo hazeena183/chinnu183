@@ -29,6 +29,9 @@ class Tutorial(models.Model):
     description = models.CharField(max_length=200,blank=False, default='')
     published = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.title
+
 from django.db import models
 
 class Item(models.Model):
@@ -40,7 +43,26 @@ class Item(models.Model):
 	def __str__(self) -> str:
 		return self.name
 
-class newpp(models.Model):
-    fname = models.CharField(max_length=255)
-    lname =models.CharField(max_length=255)
-    address=models.CharField(max_length=255)
+# class newpp(models.Model):
+#     fname = models.CharField(max_length=255)
+#     lname =models.CharField(max_length=255)
+#     address=models.CharField(max_length=255)
+
+from django.db import models
+
+class Genre(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="books")
+    published_date = models.DateField()
+
+    def __str__(self):
+        return self.title
+
+

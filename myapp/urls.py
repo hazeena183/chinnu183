@@ -1,7 +1,8 @@
 
 
 
-from .views import simple_form, ItemAPIView
+from .views import simple_form, ItemAPIView, GenreListCreateView, GenreRetrieveUpdateDestroyView, BookListCreateView, \
+    BookRetrieveUpdateDestroyView
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -23,6 +24,13 @@ urlpatterns = [
     path('tutorials/<int:pk>/', tutorial_detail, name='tutorial-detail'),
     path('tutorials/published/', tutorial_list_published, name='tutorial-list-published'),
     path('item/',ItemAPIView.as_view(),name = 'item'),
+    path('item/<int:pk>/',ItemAPIView.as_view(),name = 'item-delete'),
+    path('genres/', GenreListCreateView.as_view(), name='genre-list-create'),
+    path('genres/<int:pk>/', GenreRetrieveUpdateDestroyView.as_view(), name='genre-detail'),
+    path('books/', BookListCreateView.as_view(), name='book-list-create'),
+    path('books/<int:pk>/', BookRetrieveUpdateDestroyView.as_view(), name='book-detail'),
+
+
     # Add other paths as needed
 ]
 if settings.DEBUG:
